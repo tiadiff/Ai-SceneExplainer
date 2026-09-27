@@ -6,6 +6,8 @@ A browser extension (designed for Opera GX) that gives you immediate explanation
 
 ## Features
 - **Cinematic Overlay:** An elegant, Netflix-style red button and a glassmorphism explanation box directly integrated into the video player.
+- **Draggable & Dockable Widget:** Smoothly drag the widget up/down along either the right or left edge of the screen to never block subtitles or player controls. The position and docked side are saved automatically.
+- **Scene Backstory & Suggested Follow-up:** Every explanation provides a subtle, clickable follow-up question suggested by Gemini. Clicking it asks the AI to break down the backstory and reveal how the story arrived at that exact scene without future spoilers.
 - **Silent Scraping:** Uses a clever trick to query the `gemini.google.com` web interface (utilizing your active subscription) without paying for Developer APIs. No token limits!
 - **Smart Teleportation:** Bypasses modern browsers' background tab throttling by temporarily launching Gemini in the active tab and instantly teleporting you back to the movie.
 - **Statistics Dashboard:** A dedicated popup to track how many scenes the AI has explained for you, featuring a dark cinematic aesthetic.

@@ -2,6 +2,7 @@ let pendingExplainerTabId = null;
 let pendingExplainerWindowId = null;
 let movieTabId = null;
 let currentPrompt = "";
+let isFollowupRequest = false;
 
 let pendingUsageTabId = null;
 
@@ -13,6 +14,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Salviamo l'ID della scheda del film
     movieTabId = sender.tab.id;
     currentPrompt = request.prompt;
+    isFollowupRequest = !!request.isFollowup;
     
     // Estrapoliamo sempre i limiti di consumo live a ogni spiegazione scena, senza cache
     triggerUsageLimitsScrape();
@@ -60,7 +62,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       stopExplainerGuardian();
 
       if (movieTabId) {
-        chrome.tabs.sendMessage(movieTabId, { action: "showExplanation", text: request.text });
+        chrome.tabs.sendMessage(movieTabId, { 
+          action: "showExplanation", 
+          text: request.text, 
+          isFollowup: isFollowupRequest 
+        });
       }
       
       chrome.storage.local.get(['totalScenesExplained'], (result) => {
@@ -79,6 +85,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       pendingExplainerWindowId = null;
       movieTabId = null;
       currentPrompt = "";
+      isFollowupRequest = false;
     }
     return true;
   }
@@ -200,5 +207,6 @@ chrome.windows.onRemoved.addListener((windowId) => {
     stopExplainerGuardian();
     pendingExplainerWindowId = null;
     pendingExplainerTabId = null;
+    isFollowupRequest = false;
   }
 });

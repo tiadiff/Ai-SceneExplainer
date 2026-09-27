@@ -20,7 +20,10 @@
       errorExtension: "Errore. L'estensione non risponde. (F5)",
       promptYouTube: "un video su YouTube",
       promptStreaming: "un film o una serie su un sito di streaming",
-      promptTemplate: (desc, title, time) => `L'utente sta guardando ${desc}. Titolo: "${title}". Minuto esatto in cui si trova: ${time}. Senza spoiler, scrivi 1 o 2 frasi molto brevi descrivendo il contesto di ciò che sta guardando. Rispondi in italiano. Inizia con "Probabilmente stai guardando la scena in cui...". Non rispondere ad altro, dimmi solo questo.`,
+      promptTemplate: (desc, title, time) => `L'utente sta guardando ${desc}. Titolo: "${title}". Minuto esatto in cui si trova: ${time}. Senza spoiler, scrivi 1 o 2 frasi molto brevi descrivendo il contesto di ciò che sta guardando. Rispondi in italiano. Inizia con "Probabilmente stai guardando la scena in cui...". Poi, su una nuova riga scrivi esattamente: "[DOMANDA]: " seguito da una brevissima domanda (massimo 10 parole) che suggerisce di approfondire come si è arrivati a questa scena (es. "[DOMANDA]: Come si è arrivati a questo punto?"). Non rispondere ad altro, dimmi solo questo.`,
+      followupPromptTemplate: (desc, title, time, question) => `L'utente sta guardando ${desc}. Titolo: "${title}". Minuto esatto in cui si trova: ${time}. Domanda di approfondimento: "${question}". Senza spoiler su ciò che accade dopo questo minuto, spiega in 2 o 3 brevi frasi come i personaggi o la trama sono arrivati a questa situazione (gli antecedenti della scena). Rispondi in italiano. Non fare preamboli, spiega subito i fatti.`,
+      followupDefault: "Come si è arrivati a questo punto?",
+      followupLoading: "Ricostruendo come si è arrivati qui...",
       timeFormat: (m, s) => `${m} minuti e ${s} secondi`
     },
     en: {
@@ -38,7 +41,10 @@
       errorExtension: "Error. Extension not responding. (F5)",
       promptYouTube: "a YouTube video",
       promptStreaming: "a movie or series on a streaming site",
-      promptTemplate: (desc, title, time) => `The user is watching ${desc}. Title: "${title}". Exact timestamp: ${time}. Without spoilers, write 1 or 2 very brief sentences describing the context of what they are watching. Answer in English. Start with "You are likely watching the scene where...". Do not reply with anything else, only this.`,
+      promptTemplate: (desc, title, time) => `The user is watching ${desc}. Title: "${title}". Exact timestamp: ${time}. Without spoilers, write 1 or 2 very brief sentences describing the context of what they are watching. Answer in English. Start with "You are likely watching the scene where...". Then, on a new line write exactly: "[DOMANDA]: " followed by a very brief question (max 10 words) suggesting how they got to this scene (e.g. "[DOMANDA]: How did they get to this point?"). Do not reply with anything else, only this.`,
+      followupPromptTemplate: (desc, title, time, question) => `The user is watching ${desc}. Title: "${title}". Timestamp: ${time}. Follow-up question: "${question}". Without any spoilers for events after this timestamp, explain in 2 or 3 brief sentences how the characters or plot arrived at this situation (the backstory of the scene). Answer in English. No preambles, explain the facts directly.`,
+      followupDefault: "How did they get to this point?",
+      followupLoading: "Reconstructing the backstory...",
       timeFormat: (m, s) => `${m} minutes and ${s} seconds`
     },
     es: {
@@ -56,7 +62,10 @@
       errorExtension: "Error. La extensión no responde. (F5)",
       promptYouTube: "un video en YouTube",
       promptStreaming: "una película o serie en un sitio de streaming",
-      promptTemplate: (desc, title, time) => `El usuario está viendo ${desc}. Título: "${title}". Minuto exacto: ${time}. Sin spoilers, escribe 1 o 2 frases muy breves describiendo el contexto de lo que está viendo. Responde en español. Empieza con "Probablemente estás viendo la escena en la que...". No respondas a nada más, solo esto.`,
+      promptTemplate: (desc, title, time) => `El usuario está viendo ${desc}. Título: "${title}". Minuto exacto: ${time}. Sin spoilers, escribe 1 o 2 frases muy breves describiendo el contexto de lo que está viendo. Responde en español. Empieza con "Probablemente estás viendo la escena en la que...". Luego, en una nueva línea escribe exactamente: "[DOMANDA]: " seguido de una pregunta muy breve (máximo 10 palabras) que sugiera cómo se llegó a esta escena (ej. "[DOMANDA]: ¿Cómo se llegó a este punto?"). No respondas a nada más, solo esto.`,
+      followupPromptTemplate: (desc, title, time, question) => `El usuario está viendo ${desc}. Título: "${title}". Minuto: ${time}. Pregunta de profundización: "${question}". Sin spoilers de lo que ocurre después de este minuto, explica en 2 o 3 frases breves cómo los personajes o la trama llegaron a esta situación (los antecedentes). Responde en español. Sin rodeos, explica los hechos directamente.`,
+      followupDefault: "¿Cómo se llegó a este punto?",
+      followupLoading: "Reconstruyendo antecedentes...",
       timeFormat: (m, s) => `${m} minutos y ${s} segundos`
     },
     fr: {
@@ -74,7 +83,10 @@
       errorExtension: "Erreur. L'extension ne répond pas. (F5)",
       promptYouTube: "une vidéo sur YouTube",
       promptStreaming: "un film ou une série sur un site de streaming",
-      promptTemplate: (desc, title, time) => `L'utilisateur regarde ${desc}. Titre : "${title}". Minute exacte : ${time}. Sans spoiler, rédigez 1 ou 2 phrases très courtes décrivant le contexte de ce qu'il regarde. Répondez en français. Commencez par "Vous regardez probablement la scène où...". Ne répondez à rien d'autre, seulement cela.`,
+      promptTemplate: (desc, title, time) => `L'utilisateur regarde ${desc}. Titre : "${title}". Minute exacte : ${time}. Sans spoiler, rédigez 1 ou 2 phrases très courtes décrivant le contexte de ce qu'il regarde. Répondez en français. Commencez par "Vous regardez probablement la scène où...". Puis, sur une nouvelle ligne écrivez exactement : "[DOMANDA]: " suivi d'une très courte question (max 10 mots) suggérant comment on en est arrivé à cette scène (ex. "[DOMANDA]: Comment en est-on arrivé là ?"). Ne répondez à rien d'autre, seulement cela.`,
+      followupPromptTemplate: (desc, title, time, question) => `L'utilisateur regarde ${desc}. Titre : "${title}". Minute : ${time}. Question d'approfondissement : "${question}". Sans aucun spoiler sur les événements postérieurs à cette minute, expliquez en 2 ou 3 phrases courtes comment les personnages ou l'intrigue en sont arrivés à cette situation (les antécédents). Répondez en français. Pas de préambule, expliquez directement les faits.`,
+      followupDefault: "Comment en est-on arrivé là ?",
+      followupLoading: "Reconstitution des événements...",
       timeFormat: (m, s) => `${m} minutes et ${s} secondes`
     },
     de: {
@@ -92,7 +104,10 @@
       errorExtension: "Fehler. Erweiterung antwortet nicht. (F5)",
       promptYouTube: "ein Video auf YouTube",
       promptStreaming: "einen Film oder eine Serie auf einer Streaming-Seite",
-      promptTemplate: (desc, title, time) => `Der Benutzer sieht ${desc}. Titel: "${title}". Genaue Zeit: ${time}. Schreibe ohne Spoiler 1 oder 2 sehr kurze Sätze, die den Kontext der Szene beschreiben. Antworte auf Deutsch. Beginne mit "Wahrscheinlich siehst du gerade die Szene, in der...". Antworte auf nichts anderes, nur dies.`,
+      promptTemplate: (desc, title, time) => `Der Benutzer sieht ${desc}. Titel: "${title}". Genaue Zeit: ${time}. Schreibe ohne Spoiler 1 oder 2 sehr kurze Sätze, die den Kontext der Szene beschreiben. Antworte auf Deutsch. Beginne mit "Wahrscheinlich siehst du gerade die Szene, in der...". Dann schreibe in einer neuen Zeile genau: "[DOMANDA]: " gefolgt von einer sehr kurzen Frage (max. 10 Wörter), die vertieft, wie es zu dieser Szene kam (z.B. "[DOMANDA]: Wie kam es zu diesem Punkt?"). Antworte auf nichts anderes, nur dies.`,
+      followupPromptTemplate: (desc, title, time, question) => `Der Benutzer sieht ${desc}. Titel: "${title}". Zeit: ${time}. Vertiefende Frage: "${question}". Erkläre ohne Spoiler für spätere Minuten in 2 oder 3 kurzen Sätzen, wie die Charaktere oder die Handlung zu dieser Situation gelangt sind. Antworte auf Deutsch. Ohne Umschweife, direkt die Fakten.`,
+      followupDefault: "Wie kam es zu diesem Punkt?",
+      followupLoading: "Vorgeschichte wird rekonstruiert...",
       timeFormat: (m, s) => `${m} Minuten und ${s} Sekunden`
     }
   };
@@ -143,6 +158,108 @@
 
     const cancelBtn = document.getElementById('se-countdown-cancel');
     if (cancelBtn) cancelBtn.textContent = pack.cancelClose;
+  }
+
+  let currentTopPct = 50;
+  let currentSide = 'right';
+  let suppressWidgetClick = false;
+
+  chrome.storage.local.get(['seWidgetTop', 'seWidgetSide'], (res) => {
+    if (res) {
+      if (typeof res.seWidgetTop === 'number') currentTopPct = res.seWidgetTop;
+      if (res.seWidgetSide === 'left' || res.seWidgetSide === 'right') currentSide = res.seWidgetSide;
+    }
+    applyWidgetPosition(currentTopPct, currentSide);
+  });
+
+  function applyWidgetPosition(topPct, side) {
+    const container = document.getElementById('se-overlay-container');
+    if (!container) return;
+    const clamped = Math.max(5, Math.min(88, topPct));
+    container.style.top = clamped + '%';
+    container.style.transform = `translateY(-${clamped}%)`;
+    if (side === 'left') {
+      container.classList.add('se-dock-left');
+      container.classList.remove('se-dock-right');
+    } else {
+      container.classList.add('se-dock-right');
+      container.classList.remove('se-dock-left');
+    }
+  }
+
+  function setupDraggable(container, widget) {
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+
+    const onPointerDown = (e) => {
+      // Solo click sinistro o tocco primario
+      if (e.button !== undefined && e.button !== 0) return;
+
+      // Ignora click su elementi interattivi interni
+      if (e.target.closest('#se-close-btn, #se-settings-btn, #se-lang-select, #se-countdown-cancel, .se-followup-trigger')) {
+        return;
+      }
+
+      // Se il widget è espanso, consentiamo il trascinamento solo dall'header
+      if (widget.classList.contains('se-expanded') && !e.target.closest('#se-header')) {
+        return;
+      }
+
+      startX = e.clientX;
+      startY = e.clientY;
+      isDragging = false;
+
+      const onPointerMove = (moveEvent) => {
+        const dx = moveEvent.clientX - startX;
+        const dy = moveEvent.clientY - startY;
+        const dist = Math.hypot(dx, dy);
+
+        if (!isDragging && dist > 5) {
+          isDragging = true;
+          suppressWidgetClick = true;
+          document.body.classList.add('se-is-dragging');
+          container.classList.add('se-dragging');
+        }
+
+        if (isDragging) {
+          moveEvent.preventDefault();
+          const winH = window.innerHeight || 800;
+          let newTopPct = (moveEvent.clientY / winH) * 100;
+          newTopPct = Math.max(5, Math.min(88, newTopPct));
+
+          const newSide = moveEvent.clientX < (window.innerWidth / 2) ? 'left' : 'right';
+
+          currentTopPct = newTopPct;
+          currentSide = newSide;
+          applyWidgetPosition(newTopPct, newSide);
+        }
+      };
+
+      const onPointerUp = () => {
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+
+        if (isDragging) {
+          document.body.classList.remove('se-is-dragging');
+          container.classList.remove('se-dragging');
+          chrome.storage.local.set({
+            seWidgetTop: currentTopPct,
+            seWidgetSide: currentSide
+          });
+          setTimeout(() => {
+            suppressWidgetClick = false;
+          }, 80);
+        } else {
+          suppressWidgetClick = false;
+        }
+      };
+
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', onPointerUp);
+    };
+
+    widget.addEventListener('pointerdown', onPointerDown);
   }
 
   let overlayInjected = false;
@@ -288,9 +405,17 @@
     </div>
   `;
     document.body.appendChild(container);
+    applyWidgetPosition(currentTopPct, currentSide);
 
     const widget = document.getElementById('se-widget');
+    setupDraggable(container, widget);
+
     widget.addEventListener('click', (e) => {
+      if (suppressWidgetClick) {
+        e.stopPropagation();
+        e.preventDefault();
+        return;
+      }
       // Se è nello stato compresso (solo icona), cliccandolo espandiamo e avviamo la spiegazione
       if (widget.classList.contains('se-collapsed')) {
         explainCurrentScene();
@@ -428,24 +553,130 @@
     limitsEl.innerHTML = formatted;
   }
 
+  let currentSuggestedQuestion = "";
+  let lastDetectedTitle = "";
+  let lastFormattedTime = "";
+  let lastContextDesc = "";
+
   // Ascoltiamo i messaggi in arrivo dal Background Script (che a sua volta li riceve da Gemini!)
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "showExplanation") {
       expandWidget();
-      const contentEl = document.getElementById('se-content');
-      if (contentEl) {
-        contentEl.innerHTML = request.text;
-      }
       const settingsBtn = document.getElementById('se-settings-btn');
       if (settingsBtn) settingsBtn.style.display = 'flex';
-      // Avviamo il conto alla rovescia di 16 secondi per la chiusura automatica
-      startCountdown(16);
+
+      if (request.isFollowup) {
+        renderFollowupResult(request.text);
+        startCountdown(25);
+      } else {
+        renderInitialExplanation(request.text);
+        startCountdown(16);
+      }
     }
 
     if (request.action === "updateUsageLimits" && request.limits) {
       renderUsageLimits(request.limits);
     }
   });
+
+  function renderInitialExplanation(rawHtml) {
+    const contentEl = document.getElementById('se-content');
+    if (!contentEl) return;
+
+    const pack = getI18n();
+    let text = rawHtml || "";
+    let suggestedQuestion = "";
+
+    // Cerca il tag [DOMANDA]: ... generato da Gemini
+    const questionRegex = /(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*([^<\n\r]+)/i;
+    const match = text.match(questionRegex);
+
+    if (match && match[1]) {
+      suggestedQuestion = match[1].replace(/<\/?[^>]+(>|$)/g, '').replace(/[\]\*\)]/g, '').trim();
+      text = text.replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '').trim();
+    }
+
+    if (!suggestedQuestion || suggestedQuestion.length < 4) {
+      suggestedQuestion = pack.followupDefault;
+    }
+
+    text = text.replace(/<p>\s*<\/p>/g, '').trim();
+    currentSuggestedQuestion = suggestedQuestion;
+
+    contentEl.innerHTML = `
+      <div class="se-main-explanation">${text}</div>
+      <div class="se-followup-wrapper" id="se-followup-wrapper">
+        <div class="se-followup-trigger" id="se-followup-trigger" role="button" tabindex="0" title="${suggestedQuestion}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span class="se-followup-label">${suggestedQuestion}</span>
+        </div>
+      </div>
+    `;
+
+    const triggerBtn = document.getElementById('se-followup-trigger');
+    if (triggerBtn) {
+      triggerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        executeFollowupExplanation(currentSuggestedQuestion);
+      });
+    }
+  }
+
+  function executeFollowupExplanation(question) {
+    stopCountdown();
+    const pack = getI18n();
+    const wrapper = document.getElementById('se-followup-wrapper');
+    if (wrapper) {
+      wrapper.innerHTML = `
+        <div class="se-followup-loading">
+          <span class="se-loader se-loader-mini"></span>
+          <i>${pack.followupLoading}</i>
+        </div>
+      `;
+    }
+
+    const title = lastDetectedTitle || document.title || "Video";
+    const contextDesc = lastContextDesc || pack.promptStreaming;
+    const timeFormatted = lastFormattedTime || "tempo corrente";
+
+    const followupPrompt = pack.followupPromptTemplate(contextDesc, title, timeFormatted, question);
+
+    chrome.runtime.sendMessage({
+      action: "explainSceneAutomation",
+      prompt: followupPrompt,
+      isFollowup: true
+    }, (response) => {
+      if (chrome.runtime.lastError) {
+        if (wrapper) {
+          wrapper.innerHTML = `<span style="color:#fa5252; font-size:11px;">${pack.errorExtension}</span>`;
+        }
+      }
+    });
+  }
+
+  function renderFollowupResult(rawHtml) {
+    const wrapper = document.getElementById('se-followup-wrapper');
+    if (!wrapper) return;
+
+    let cleanText = (rawHtml || "").replace(/<p>\s*<\/p>/g, '').trim();
+    cleanText = cleanText.replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '').trim();
+
+    wrapper.innerHTML = `
+      <div class="se-backstory-card">
+        <div class="se-backstory-question">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span>${currentSuggestedQuestion}</span>
+        </div>
+        <div class="se-backstory-body">${cleanText}</div>
+      </div>
+    `;
+  }
 
   async function explainCurrentScene() {
     stopCountdown();
@@ -519,8 +750,13 @@
     const seconds = Math.floor(currentTime % 60);
     const timeFormatted = pack.timeFormat(minutes, seconds);
 
-    // Creiamo il prompt mirato nella lingua selezionata dall'utente
+    // Memorizziamo il contesto e il titolo per eventuali approfondimenti
     const contextDesc = isYouTube ? pack.promptYouTube : pack.promptStreaming;
+    lastDetectedTitle = title;
+    lastFormattedTime = timeFormatted;
+    lastContextDesc = contextDesc;
+
+    // Creiamo il prompt mirato nella lingua selezionata dall'utente
     const prompt = pack.promptTemplate(contextDesc, title, timeFormatted);
 
     // Inviamo il prompt al Background Script per avviare l'automazione

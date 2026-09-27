@@ -9,8 +9,35 @@
   font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   pointer-events: none; /* Il container non blocca i click fuori dal widget */
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#se-overlay-container.se-dock-right {
+  right: 0;
+  left: auto;
+  align-items: flex-end;
+}
+
+#se-overlay-container.se-dock-left {
+  left: 0;
+  right: auto;
+  align-items: flex-start;
+}
+
+#se-overlay-container.se-dragging,
+#se-overlay-container.se-dragging #se-widget {
+  transition: none !important;
+}
+
+body.se-is-dragging {
+  user-select: none !important;
+  cursor: grabbing !important;
+}
+
+body.se-is-dragging iframe,
+body.se-is-dragging video {
+  pointer-events: none !important;
 }
 
 /* Widget unificato che si trasforma: da icona a scheda completa */
@@ -39,9 +66,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: grab;
   padding: 0;
   transform-origin: right center;
+}
+
+#se-overlay-container.se-dock-left #se-widget.se-collapsed {
+  border-radius: 0 12px 12px 0;
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  transform-origin: left center;
 }
 
 #se-widget.se-collapsed:hover {
@@ -52,6 +86,7 @@
 }
 
 #se-widget.se-collapsed:active {
+  cursor: grabbing;
   transform: scale(0.96);
 }
 
@@ -87,6 +122,13 @@
   transform-origin: right center;
 }
 
+#se-overlay-container.se-dock-left #se-widget.se-expanded {
+  border-radius: 0 12px 12px 0;
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  transform-origin: left center;
+}
+
 #se-widget.se-expanded #se-icon-view {
   display: none;
 }
@@ -109,6 +151,12 @@
   margin-bottom: 12px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: grab;
+  user-select: none;
+}
+
+#se-header:active {
+  cursor: grabbing;
 }
 
 #se-header-title {
@@ -237,6 +285,116 @@
   line-height: 1.5;
   font-size: 13.5px;
   margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.se-main-explanation {
+  color: #e5e5e5;
+  line-height: 1.5;
+}
+
+/* Follow-up / Backstory Suggestion Box */
+.se-followup-wrapper {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.se-followup-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 11.5px;
+  color: #888888; /* Scritta più piccola e in grigio scuro */
+  line-height: 1.35;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.se-followup-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #d4d4d8; /* Schiarisce piacevolmente al passaggio del mouse */
+  transform: translateY(-1px);
+}
+
+.se-followup-trigger:active {
+  transform: translateY(0);
+}
+
+.se-followup-trigger svg {
+  flex-shrink: 0;
+  color: #71717a;
+  transition: color 0.2s;
+}
+
+.se-followup-trigger:hover svg {
+  color: #e50914; /* Tocco rosso Opera GX / Netflix */
+}
+
+.se-followup-label {
+  font-style: italic;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Follow-up Loading */
+.se-followup-loading {
+  font-size: 11px;
+  color: #888888;
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  font-style: italic;
+}
+
+.se-loader-mini {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+  margin-right: 8px;
+}
+
+/* Follow-up Backstory Result Card */
+.se-backstory-card {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 2px solid #e50914; /* Accento rosso */
+  border-radius: 6px;
+  animation: seFadeIn 0.25s ease-out;
+}
+
+.se-backstory-question {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.se-backstory-body {
+  font-size: 12.5px;
+  color: #e4e4e7;
+  line-height: 1.45;
   word-break: break-word;
 }
 

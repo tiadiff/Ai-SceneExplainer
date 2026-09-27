@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Scene Explainer GX",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Instantly explains movie scenes you are watching on streaming sites using Google Gemini.",
   "permissions": ["storage", "activeTab", "tabs"],
   "host_permissions": [
