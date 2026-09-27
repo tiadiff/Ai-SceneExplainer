@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap');
+
+#se-overlay-container {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 2147483647; /* Valore massimo per stare sopra a tutto */
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none; /* Il container non blocca i click */
+}
+
+#se-button {
+  background-color: #E50914; /* Netflix Red */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px; /* Angoli leggermente smussati stile bottone riproduzione */
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+  pointer-events: auto; /* Riattiva i click per il bottone */
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#se-button:hover {
+  background-color: #f40612; /* Rosso leggermente più acceso */
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+  transform: scale(1.03);
+}
+
+#se-button:active {
+  transform: scale(0.97);
+}
+
+#se-toast {
+  background-color: rgba(20, 20, 20, 0.95); /* Netflix Black con leggerissima trasparenza */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #E50914; /* Linea rossa in cima per dare contrasto */
+  color: #e5e5e5;
+  padding: 20px 25px 20px 20px;
+  border-radius: 4px;
+  width: 320px;
+  margin-bottom: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+  position: relative;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  line-height: 1.6;
+  font-size: 14px;
+  pointer-events: auto; /* Riattiva i click per il toast */
+}
+
+#se-toast.se-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(40px) scale(0.95);
+  display: none;
+}
+
+#se-toast-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  color: #808080;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+#se-toast-close:hover {
+  color: #ffffff;
+}
+
+.se-loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #ffffff; /* Loader bianco su sfondo rosso */
+  animation: se-spin 1s ease-in-out infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+@keyframes se-spin {
+  to { transform: rotate(360deg); }
+}

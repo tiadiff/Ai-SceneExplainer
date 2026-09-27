@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Scene Explainer GX",
+  "version": "1.0",
+  "description": "Ti suggerisce cosa sta succedendo nella scena che stai guardando su StreamingCommunity.",
+  "permissions": ["storage", "activeTab", "tabs"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.streamingcommunityz.photos/*", "*://*/*"],
+      "all_frames": true,
+      "css": ["content.css"],
+      "js": ["content.js"]
+    },
+    {
+      "matches": ["*://gemini.google.com/*"],
+      "js": ["gemini_scraper.js"]
+    }
+  ]
+}
