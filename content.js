@@ -607,11 +607,6 @@
       <div class="se-main-explanation">${text}</div>
       <div class="se-followup-wrapper" id="se-followup-wrapper">
         <div class="se-followup-trigger" id="se-followup-trigger" role="button" tabindex="0" title="${suggestedQuestion}">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-          </svg>
           <span class="se-followup-label">${suggestedQuestion}</span>
         </div>
       </div>
@@ -667,12 +662,7 @@
 
     wrapper.innerHTML = `
       <div class="se-backstory-card">
-        <div class="se-backstory-question">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-          <span>${currentSuggestedQuestion}</span>
-        </div>
+        <div class="se-backstory-question">${currentSuggestedQuestion}</div>
         <div class="se-backstory-body">${cleanText}</div>
       </div>
     `;
