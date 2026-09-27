@@ -309,10 +309,8 @@ body.se-is-dragging video {
   color: #888888; /* Scritta più piccola e in grigio scuro */
   line-height: 1.35;
   cursor: pointer;
-  text-decoration: underline;
-  text-decoration-color: rgba(136, 136, 136, 0.4);
-  text-underline-offset: 3px;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration: none;
+  transition: color 0.2s ease;
   user-select: none;
   width: 100%;
   box-sizing: border-box;
@@ -322,7 +320,7 @@ body.se-is-dragging video {
 .se-followup-trigger:hover {
   background: transparent;
   color: #d4d4d8; /* Schiarisce al passaggio del mouse */
-  text-decoration-color: #d4d4d8;
+  text-decoration: none;
 }
 
 .se-followup-label {
