@@ -1,8 +1,9 @@
-# Scene Explainer - Opera GX Extension 🎬
+# Scene Explainer - Opera GX Extension
 
 A browser extension (designed for Opera GX) that gives you immediate explanations of movie scenes you are watching on streaming sites like StreamingCommunity. It does this by silently querying your personal Google Gemini Advanced account, completely free and invisible.
 
-<img width="321" height="154" alt="{24340832-EB8C-4349-9A94-E1A165BF364C}" src="https://github.com/user-attachments/assets/0e6c47cc-174d-4fda-bf80-2988530ae043" />
+<img width="303" height="264" alt="{06B3925D-481F-4E4C-9E3F-964DF816EE8F}" src="https://github.com/user-attachments/assets/85834a94-6740-406a-aa6e-7d7f78c6ca42" />
+
 
 ## Features
 - **Cinematic Overlay:** An elegant, Netflix-style red button and a glassmorphism explanation box directly integrated into the video player.
