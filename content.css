@@ -2,83 +2,301 @@
 
 #se-overlay-container {
   position: fixed;
-  bottom: 80px;
-  right: 20px;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
   z-index: 2147483647; /* Valore massimo per stare sopra a tutto */
   font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  pointer-events: none; /* Il container non blocca i click */
+  pointer-events: none; /* Il container non blocca i click fuori dal widget */
 }
 
-#se-button {
-  background-color: #E50914; /* Netflix Red */
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 4px; /* Angoli leggermente smussati stile bottone riproduzione */
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  transition: all 0.2s ease;
-  pointer-events: auto; /* Riattiva i click per il bottone */
+/* Widget unificato che si trasforma: da icona a scheda completa */
+#se-widget {
+  background-color: #242424; /* Grigio scuro elegante */
+  color: #e5e5e5;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+  pointer-events: auto;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s ease,
+              background-color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+/* 1. STATO COMPATTO (Solo icona senza scritte) */
+#se-widget.se-collapsed {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px 0 0 12px;
+  border-right: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transform-origin: right center;
 }
 
-#se-button:hover {
-  background-color: #f40612; /* Rosso leggermente più acceso */
-  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
-  transform: scale(1.03);
+#se-widget.se-collapsed:hover {
+  background-color: #323232;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  transform: scale(1.08);
 }
 
-#se-button:active {
-  transform: scale(0.97);
+#se-widget.se-collapsed:active {
+  transform: scale(0.96);
 }
 
-#se-toast {
-  background-color: rgba(20, 20, 20, 0.95); /* Netflix Black con leggerissima trasparenza */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 3px solid #E50914; /* Linea rossa in cima per dare contrasto */
-  color: #e5e5e5;
-  padding: 20px 25px 20px 20px;
-  border-radius: 4px;
-  width: 320px;
-  margin-bottom: 15px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
-  position: relative;
-  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  line-height: 1.6;
-  font-size: 14px;
-  pointer-events: auto; /* Riattiva i click per il toast */
-}
-
-#se-toast.se-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(40px) scale(0.95);
+#se-widget.se-collapsed #se-expanded-view {
   display: none;
 }
 
-#se-toast-close {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  cursor: pointer;
-  color: #808080;
-  font-size: 18px;
-  font-weight: bold;
-  transition: color 0.2s;
+#se-icon-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
 }
 
-#se-toast-close:hover {
+#se-icon-view svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* 2. STATO ESPANSO (Stesso pulsante ingrandito con spiegazione e limiti) */
+#se-widget.se-expanded {
+  width: 320px;
+  max-width: calc(100vw - 20px);
+  border-radius: 12px 0 0 12px;
+  border-right: none;
+  padding: 16px 18px 14px 18px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  transform-origin: right center;
+}
+
+#se-widget.se-expanded #se-icon-view {
+  display: none;
+}
+
+#se-widget.se-expanded #se-expanded-view {
+  display: flex;
+  flex-direction: column;
+  animation: seFadeIn 0.25s ease-out;
+}
+
+@keyframes seFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#se-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#se-header-title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
   color: #ffffff;
+}
+
+#se-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#se-settings-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888888;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s, transform 0.3s;
+}
+
+#se-settings-btn:hover {
+  color: #ffffff;
+  transform: rotate(30deg);
+}
+
+#se-settings-btn.se-active {
+  color: #3b82f6;
+  transform: rotate(90deg);
+}
+
+#se-close-btn {
+  cursor: pointer;
+  color: #888888;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+#se-close-btn:hover {
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+#se-main-view {
+  display: flex;
+  flex-direction: column;
+}
+
+#se-settings-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0 6px 0;
+  animation: seFadeIn 0.2s ease-out;
+}
+
+.se-settings-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.se-settings-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.se-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+#se-lang-select {
+  width: 100%;
+  background: #1c1c1e;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+
+#se-lang-select:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: #242428;
+}
+
+#se-lang-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+#se-lang-select option {
+  background: #1e1e22;
+  color: #ffffff;
+  padding: 6px 10px;
+}
+
+.se-settings-hint {
+  font-size: 11px;
+  color: #71717a;
+  line-height: 1.45;
+}
+
+#se-content {
+  color: #e5e5e5;
+  line-height: 1.5;
+  font-size: 13.5px;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+#se-countdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 10.5px;
+  color: #a8a8a8;
+  font-weight: 500;
+  line-height: 1.35;
+  font-family: inherit;
+}
+
+#se-countdown-num {
+  font-size: 10.5px;
+  color: #a8a8a8;
+  font-weight: 500;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+#se-countdown-cancel {
+  cursor: pointer;
+  color: #a8a8a8;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-decoration: none;
+  font-family: inherit;
+  transition: color 0.15s;
+  user-select: none;
+}
+
+#se-countdown-cancel:hover {
+  color: #ffffff;
+}
+
+.se-keep-open-notice {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #888888;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+#se-usage-limits {
+  font-size: 10.5px;
+  color: #a8a8a8;
+  font-weight: 500;
+  text-align: left;
+  line-height: 1.35;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#se-usage-limits:empty {
+  display: none;
 }
 
 .se-loader {
@@ -87,7 +305,7 @@
   height: 16px;
   border: 3px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  border-top-color: #ffffff; /* Loader bianco su sfondo rosso */
+  border-top-color: #ffffff;
   animation: se-spin 1s ease-in-out infinite;
   margin-right: 10px;
   vertical-align: middle;
