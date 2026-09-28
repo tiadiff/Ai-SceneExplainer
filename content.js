@@ -9,6 +9,7 @@
       title: "Spiegami la scena",
       settingsTitle: "Impostazioni",
       close: "Chiudi",
+      dragHint: "Trascina per riposizionare",
       langLabel: "Lingua",
       langHint: "Il prompt inviato a Gemini e tutti i testi si adatteranno alla lingua scelta.",
       observing: "Osservando la scena...",
@@ -18,18 +19,23 @@
       closeCancelled: "Chiusura annullata",
       refreshingLimits: "Aggiornamento limiti...",
       errorExtension: "Errore. L'estensione non risponde. (F5)",
-      promptYouTube: "un video su YouTube",
-      promptStreaming: "un film o una serie su un sito di streaming",
-      promptTemplate: (desc, title, time) => `L'utente sta guardando ${desc}. Titolo: "${title}". Minuto esatto in cui si trova: ${time}. Senza spoiler, scrivi 1 o 2 frasi molto brevi descrivendo il contesto di ciò che sta guardando. Rispondi in italiano. Inizia con "Probabilmente stai guardando la scena in cui...". Poi, su una nuova riga scrivi esattamente: "[DOMANDA]: " seguito da una brevissima domanda (massimo 10 parole) che suggerisce di approfondire come si è arrivati a questa scena (es. "[DOMANDA]: Come si è arrivati a questo punto?"). Non rispondere ad altro, dimmi solo questo.`,
-      followupPromptTemplate: (desc, title, time, question) => `L'utente sta guardando ${desc}. Titolo: "${title}". Minuto esatto in cui si trova: ${time}. Domanda di approfondimento: "${question}". Senza spoiler su ciò che accade dopo questo minuto, spiega in 2 o 3 brevi frasi come i personaggi o la trama sono arrivati a questa situazione (gli antecedenti della scena). Rispondi in italiano. Non fare preamboli, spiega subito i fatti.`,
+      promptYouTube: "su YouTube",
+      promptStreaming: "in streaming",
+      promptTemplate: (desc, title, time) => `Video: "${title}" (${desc}) al minuto ${time}. Senza spoiler, descrivi la scena in 1 sola frase. Inizia con "Probabilmente stai guardando la scena in cui...". Poi a capo scrivi esattamente: "[DOMANDA]: " seguito da una brevissima domanda per approfondire gli antecedenti. Solo testo puro, zero link o media.`,
+      followupPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) al minuto ${time}. Domanda: "${question}". Senza spoiler futuri, spiega gli antecedenti in 1 o 2 frasi brevissime. Zero preamboli, solo fatti essenziali in puro testo.`,
+      customPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) al minuto ${time}. Domanda: "${question}". Senza spoiler futuri, rispondi in 1 o 2 frasi brevissime. Zero preamboli, solo fatti essenziali in puro testo.`,
       followupDefault: "Come si è arrivati a questo punto?",
       followupLoading: "Ricostruendo come si è arrivati qui...",
+      askLabel: "Chiedi qualcosa..",
+      askPlaceholder: "Fai una domanda sulla scena...",
+      askLoading: "Cercando la risposta...",
       timeFormat: (m, s) => `${m} minuti e ${s} secondi`
     },
     en: {
       title: "Explain Scene",
       settingsTitle: "Settings",
       close: "Close",
+      dragHint: "Drag to reposition",
       langLabel: "Language",
       langHint: "The prompt sent to Gemini and all app labels will adapt to the chosen language.",
       observing: "Observing scene...",
@@ -39,18 +45,23 @@
       closeCancelled: "Auto-close cancelled",
       refreshingLimits: "Updating limits...",
       errorExtension: "Error. Extension not responding. (F5)",
-      promptYouTube: "a YouTube video",
-      promptStreaming: "a movie or series on a streaming site",
-      promptTemplate: (desc, title, time) => `The user is watching ${desc}. Title: "${title}". Exact timestamp: ${time}. Without spoilers, write 1 or 2 very brief sentences describing the context of what they are watching. Answer in English. Start with "You are likely watching the scene where...". Then, on a new line write exactly: "[DOMANDA]: " followed by a very brief question (max 10 words) suggesting how they got to this scene (e.g. "[DOMANDA]: How did they get to this point?"). Do not reply with anything else, only this.`,
-      followupPromptTemplate: (desc, title, time, question) => `The user is watching ${desc}. Title: "${title}". Timestamp: ${time}. Follow-up question: "${question}". Without any spoilers for events after this timestamp, explain in 2 or 3 brief sentences how the characters or plot arrived at this situation (the backstory of the scene). Answer in English. No preambles, explain the facts directly.`,
+      promptYouTube: "on YouTube",
+      promptStreaming: "streaming",
+      promptTemplate: (desc, title, time) => `Video: "${title}" (${desc}) at timestamp ${time}. Without spoilers, describe the scene in 1 single sentence. Start with "You are likely watching the scene where...". Then on a new line write exactly: "[DOMANDA]: " followed by a very brief question to explore the backstory. Plain text only, zero links or media.`,
+      followupPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) at timestamp ${time}. Question: "${question}". Without future spoilers, explain the backstory in 1 or 2 very brief sentences. Zero preambles, only essential facts in plain text.`,
+      customPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) at timestamp ${time}. Question: "${question}". Without future spoilers, answer in 1 or 2 very brief sentences. Zero preambles, only essential facts in plain text.`,
       followupDefault: "How did they get to this point?",
       followupLoading: "Reconstructing the backstory...",
+      askLabel: "Ask something..",
+      askPlaceholder: "Ask a question about the scene...",
+      askLoading: "Searching for the answer...",
       timeFormat: (m, s) => `${m} minutes and ${s} seconds`
     },
     es: {
       title: "Explicar Escena",
       settingsTitle: "Ajustes",
       close: "Cerrar",
+      dragHint: "Arrastra para mover",
       langLabel: "Idioma",
       langHint: "El prompt enviado a Gemini y todos los textos se adaptarán al idioma elegido.",
       observing: "Observando la escena...",
@@ -60,18 +71,23 @@
       closeCancelled: "Cierre automático cancelado",
       refreshingLimits: "Actualizando límites...",
       errorExtension: "Error. La extensión no responde. (F5)",
-      promptYouTube: "un video en YouTube",
-      promptStreaming: "una película o serie en un sitio de streaming",
-      promptTemplate: (desc, title, time) => `El usuario está viendo ${desc}. Título: "${title}". Minuto exacto: ${time}. Sin spoilers, escribe 1 o 2 frases muy breves describiendo el contexto de lo que está viendo. Responde en español. Empieza con "Probablemente estás viendo la escena en la que...". Luego, en una nueva línea escribe exactamente: "[DOMANDA]: " seguido de una pregunta muy breve (máximo 10 palabras) que sugiera cómo se llegó a esta escena (ej. "[DOMANDA]: ¿Cómo se llegó a este punto?"). No respondas a nada más, solo esto.`,
-      followupPromptTemplate: (desc, title, time, question) => `El usuario está viendo ${desc}. Título: "${title}". Minuto: ${time}. Pregunta de profundización: "${question}". Sin spoilers de lo que ocurre después de este minuto, explica en 2 o 3 frases breves cómo los personajes o la trama llegaron a esta situación (los antecedentes). Responde en español. Sin rodeos, explica los hechos directamente.`,
+      promptYouTube: "en YouTube",
+      promptStreaming: "en streaming",
+      promptTemplate: (desc, title, time) => `Video: "${title}" (${desc}) en el minuto ${time}. Sin spoilers, describe la escena en 1 sola frase. Empieza con "Probablemente estás viendo la escena en la que...". Luego en nueva línea escribe exactamente: "[DOMANDA]: " seguido de una pregunta muy breve para profundizar los antecedentes. Solo texto plano, cero enlaces o medios.`,
+      followupPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) en el minuto ${time}. Pregunta: "${question}". Sin spoilers futuros, explica los antecedentes en 1 o 2 frases muy breves. Cero preámbulos, solo hechos esenciales en texto plano.`,
+      customPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) en el minuto ${time}. Pregunta: "${question}". Sin spoilers futuros, responde en 1 o 2 frases muy breves. Cero preámbulos, solo hechos esenciales en texto plano.`,
       followupDefault: "¿Cómo se llegó a este punto?",
       followupLoading: "Reconstruyendo antecedentes...",
+      askLabel: "Pregunta algo..",
+      askPlaceholder: "Haz una pregunta sobre la escena...",
+      askLoading: "Buscando la respuesta...",
       timeFormat: (m, s) => `${m} minutos y ${s} segundos`
     },
     fr: {
       title: "Expliquer la Scène",
       settingsTitle: "Paramètres",
       close: "Fermer",
+      dragHint: "Glisser pour déplacer",
       langLabel: "Langue",
       langHint: "Le prompt envoyé à Gemini et tous les textes s'adapteront à la langue choisie.",
       observing: "Observation de la scène...",
@@ -81,18 +97,23 @@
       closeCancelled: "Fermeture automatique annulée",
       refreshingLimits: "Mise à jour des limites...",
       errorExtension: "Erreur. L'extension ne répond pas. (F5)",
-      promptYouTube: "une vidéo sur YouTube",
-      promptStreaming: "un film ou une série sur un site de streaming",
-      promptTemplate: (desc, title, time) => `L'utilisateur regarde ${desc}. Titre : "${title}". Minute exacte : ${time}. Sans spoiler, rédigez 1 ou 2 phrases très courtes décrivant le contexte de ce qu'il regarde. Répondez en français. Commencez par "Vous regardez probablement la scène où...". Puis, sur une nouvelle ligne écrivez exactement : "[DOMANDA]: " suivi d'une très courte question (max 10 mots) suggérant comment on en est arrivé à cette scène (ex. "[DOMANDA]: Comment en est-on arrivé là ?"). Ne répondez à rien d'autre, seulement cela.`,
-      followupPromptTemplate: (desc, title, time, question) => `L'utilisateur regarde ${desc}. Titre : "${title}". Minute : ${time}. Question d'approfondissement : "${question}". Sans aucun spoiler sur les événements postérieurs à cette minute, expliquez en 2 ou 3 phrases courtes comment les personnages ou l'intrigue en sont arrivés à cette situation (les antécédents). Répondez en français. Pas de préambule, expliquez directement les faits.`,
+      promptYouTube: "sur YouTube",
+      promptStreaming: "en streaming",
+      promptTemplate: (desc, title, time) => `Vidéo : "${title}" (${desc}) à la minute ${time}. Sans spoiler, décrivez la scène en 1 seule phrase. Commencez par "Vous regardez probabilmente la scène où...". Puis à la ligne écrivez exactement : "[DOMANDA]: " suivi d'une très courte question pour approfondir les antécédents. Texte brut uniquement, zéro lien ou média.`,
+      followupPromptTemplate: (desc, title, time, question) => `Vidéo : "${title}" (${desc}) à la minute ${time}. Question : "${question}". Sans spoiler sur la suite, expliquez les antécédents en 1 ou 2 phrases très courtes. Zéro préambule, uniquement les faits essentiels en texte brut.`,
+      customPromptTemplate: (desc, title, time, question) => `Vidéo : "${title}" (${desc}) à la minute ${time}. Question : "${question}". Sans spoiler sur la suite, répondez en 1 ou 2 phrases très courtes. Zéro préambule, uniquement les faits essentiels en texte brut.`,
       followupDefault: "Comment en est-on arrivé là ?",
       followupLoading: "Reconstitution des événements...",
+      askLabel: "Demandez quelque chose..",
+      askPlaceholder: "Posez une question sur la scène...",
+      askLoading: "Recherche de la réponse...",
       timeFormat: (m, s) => `${m} minutes et ${s} secondes`
     },
     de: {
       title: "Szene Erklären",
       settingsTitle: "Einstellungen",
       close: "Schließen",
+      dragHint: "Ziehen zum Verschieben",
       langLabel: "Sprache",
       langHint: "Der Prompt für Gemini und alle App-Texte passen sich der gewählten Sprache an.",
       observing: "Szene wird beobachtet...",
@@ -102,12 +123,16 @@
       closeCancelled: "Automatisches Schließen abgebrochen",
       refreshingLimits: "Limits werden aktualisiert...",
       errorExtension: "Fehler. Erweiterung antwortet nicht. (F5)",
-      promptYouTube: "ein Video auf YouTube",
-      promptStreaming: "einen Film oder eine Serie auf einer Streaming-Seite",
-      promptTemplate: (desc, title, time) => `Der Benutzer sieht ${desc}. Titel: "${title}". Genaue Zeit: ${time}. Schreibe ohne Spoiler 1 oder 2 sehr kurze Sätze, die den Kontext der Szene beschreiben. Antworte auf Deutsch. Beginne mit "Wahrscheinlich siehst du gerade die Szene, in der...". Dann schreibe in einer neuen Zeile genau: "[DOMANDA]: " gefolgt von einer sehr kurzen Frage (max. 10 Wörter), die vertieft, wie es zu dieser Szene kam (z.B. "[DOMANDA]: Wie kam es zu diesem Punkt?"). Antworte auf nichts anderes, nur dies.`,
-      followupPromptTemplate: (desc, title, time, question) => `Der Benutzer sieht ${desc}. Titel: "${title}". Zeit: ${time}. Vertiefende Frage: "${question}". Erkläre ohne Spoiler für spätere Minuten in 2 oder 3 kurzen Sätzen, wie die Charaktere oder die Handlung zu dieser Situation gelangt sind. Antworte auf Deutsch. Ohne Umschweife, direkt die Fakten.`,
+      promptYouTube: "auf YouTube",
+      promptStreaming: "im Streaming",
+      promptTemplate: (desc, title, time) => `Video: "${title}" (${desc}) bei Minute ${time}. Ohne Spoiler, beschreibe die Szene in nur 1 Satz. Beginne mit "Wahrscheinlich siehst du gerade die Szene, in der...". Dann in einer neuen Zeile schreibe genau: "[DOMANDA]: " gefolgt von einer sehr kurzen Frage zur Vorgeschichte. Nur reiner Text, null Links oder Medien.`,
+      followupPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) bei Minute ${time}. Frage: "${question}". Ohne Spoiler für spätere Szenen, erkläre die Vorgeschichte in 1 oder 2 sehr kurzen Sätzen. Keine Einleitung, nur wesentliche Fakten in reinem Text.`,
+      customPromptTemplate: (desc, title, time, question) => `Video: "${title}" (${desc}) bei Minute ${time}. Frage: "${question}". Ohne Spoiler für spätere Szenen, antworte in 1 oder 2 sehr kurzen Sätzen. Keine Einleitung, nur wesentliche Fakten in reinem Text.`,
       followupDefault: "Wie kam es zu diesem Punkt?",
       followupLoading: "Vorgeschichte wird rekonstruiert...",
+      askLabel: "Frag etwas..",
+      askPlaceholder: "Stelle eine Frage zur Szene...",
+      askLoading: "Antwort wird gesucht...",
       timeFormat: (m, s) => `${m} Minuten und ${s} Sekunden`
     }
   };
@@ -138,6 +163,9 @@
         headerTitle.textContent = pack.title;
       }
     }
+
+    const dragZone = document.getElementById('se-header-drag-zone');
+    if (dragZone && pack.dragHint) dragZone.setAttribute('title', pack.dragHint);
 
     const settingsBtn = document.getElementById('se-settings-btn');
     if (settingsBtn) settingsBtn.setAttribute('title', pack.settingsTitle);
@@ -190,32 +218,44 @@
   function setupDraggable(container, widget) {
     let startX = 0;
     let startY = 0;
+    let startTopPct = 50;
     let isDragging = false;
+    let hasCaptured = false;
 
     const onPointerDown = (e) => {
       // Solo click sinistro o tocco primario
       if (e.button !== undefined && e.button !== 0) return;
 
       // Ignora click su elementi interattivi interni
-      if (e.target.closest('#se-close-btn, #se-settings-btn, #se-lang-select, #se-countdown-cancel, .se-followup-trigger')) {
+      if (e.target.closest('#se-close-btn, #se-settings-btn, #se-lang-select, #se-countdown-cancel, .se-followup-trigger, .se-custom-ask-trigger, .se-custom-ask-wrapper, a, button, select, input, option')) {
         return;
       }
 
-      // Se il widget è espanso, consentiamo il trascinamento solo dall'header
-      if (widget.classList.contains('se-expanded') && !e.target.closest('#se-header')) {
+      // Se il widget è espanso, consentiamo il trascinamento dall'header o da aree esterne a #se-content
+      // In questo modo l'utente può selezionare e copiare comodamente il testo dell'esposizione
+      if (widget.classList.contains('se-expanded') && e.target.closest('#se-content')) {
         return;
       }
 
       startX = e.clientX;
       startY = e.clientY;
+      startTopPct = currentTopPct;
       isDragging = false;
+
+      // Imposta il pointer capture per non perdere il tracciamento anche sopra ad iframe video o fuori dallo schermo
+      try {
+        widget.setPointerCapture(e.pointerId);
+        hasCaptured = true;
+      } catch (err) {
+        hasCaptured = false;
+      }
 
       const onPointerMove = (moveEvent) => {
         const dx = moveEvent.clientX - startX;
         const dy = moveEvent.clientY - startY;
         const dist = Math.hypot(dx, dy);
 
-        if (!isDragging && dist > 5) {
+        if (!isDragging && dist > 4) {
           isDragging = true;
           suppressWidgetClick = true;
           document.body.classList.add('se-is-dragging');
@@ -225,10 +265,13 @@
         if (isDragging) {
           moveEvent.preventDefault();
           const winH = window.innerHeight || 800;
-          let newTopPct = (moveEvent.clientY / winH) * 100;
+          // Calcola il delta relativo per evitare salti o scatti improvvisi
+          const deltaPct = (dy / winH) * 100;
+          let newTopPct = startTopPct + deltaPct;
           newTopPct = Math.max(5, Math.min(88, newTopPct));
 
-          const newSide = moveEvent.clientX < (window.innerWidth / 2) ? 'left' : 'right';
+          const winW = window.innerWidth || 1200;
+          const newSide = moveEvent.clientX < (winW / 2) ? 'left' : 'right';
 
           currentTopPct = newTopPct;
           currentSide = newSide;
@@ -236,9 +279,17 @@
         }
       };
 
-      const onPointerUp = () => {
+      const onPointerUp = (upEvent) => {
+        if (hasCaptured) {
+          try {
+            widget.releasePointerCapture(upEvent.pointerId);
+          } catch (err) { }
+          hasCaptured = false;
+        }
+
         window.removeEventListener('pointermove', onPointerMove);
         window.removeEventListener('pointerup', onPointerUp);
+        window.removeEventListener('pointercancel', onPointerUp);
 
         if (isDragging) {
           document.body.classList.remove('se-is-dragging');
@@ -249,7 +300,7 @@
           });
           setTimeout(() => {
             suppressWidgetClick = false;
-          }, 80);
+          }, 120);
         } else {
           suppressWidgetClick = false;
         }
@@ -257,6 +308,7 @@
 
       window.addEventListener('pointermove', onPointerMove, { passive: false });
       window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerUp);
     };
 
     widget.addEventListener('pointerdown', onPointerDown);
@@ -368,7 +420,17 @@
       </div>
       <div id="se-expanded-view">
         <div id="se-header">
-          <span id="se-header-title">${pack.title}</span>
+          <div id="se-header-drag-zone" title="${pack.dragHint || 'Trascina per riposizionare'}">
+            <svg class="se-drag-dots" width="8" height="14" viewBox="0 0 8 14" fill="currentColor">
+              <circle cx="2" cy="2" r="1.2"/>
+              <circle cx="6" cy="2" r="1.2"/>
+              <circle cx="2" cy="7" r="1.2"/>
+              <circle cx="6" cy="7" r="1.2"/>
+              <circle cx="2" cy="12" r="1.2"/>
+              <circle cx="6" cy="12" r="1.2"/>
+            </svg>
+            <span id="se-header-title">${pack.title}</span>
+          </div>
           <div id="se-header-actions">
             <span id="se-settings-btn" title="${pack.settingsTitle}">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -579,6 +641,140 @@
     }
   });
 
+  function cleanExplanationHtml(rawHtml) {
+    if (!rawHtml) return "";
+    let html = rawHtml;
+
+    // Rimuove tag [DOMANDA]: ... e varianti
+    html = html.replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '');
+
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // 1. Rimuove categoricamente TUTTI gli elementi multimediali (immagini, svg, video, canvas, audio, iframe, picture, figure)
+      const mediaSelectors = [
+        'img',
+        'svg',
+        'video',
+        'iframe',
+        'audio',
+        'canvas',
+        'picture',
+        'figure',
+        'embed',
+        'object'
+      ];
+      mediaSelectors.forEach(sel => {
+        doc.querySelectorAll(sel).forEach(el => el.remove());
+      });
+
+      // 2. Rimuove blocchi speciali di Gemini: card YouTube, rich cards, caroselli, citazioni esterne
+      const cardSelectors = [
+        'youtube-card',
+        'rich-card',
+        'grounding-card',
+        'source-card',
+        'url-card',
+        'fact-check-view',
+        'sources-carousel',
+        'sources-carousel-inline',
+        'sources-list',
+        'source-chip',
+        'grounding-chip',
+        'citation-container',
+        'mat-icon',
+        '.grounding-sources',
+        '.youtube-card',
+        '.rich-card',
+        '[class*="video-card"]',
+        '[class*="preview-card"]',
+        '[class*="rich-preview"]',
+        '[data-test-id*="video"]',
+        '[data-test-id*="source"]',
+        '[data-test-id*="grounding"]'
+      ];
+      cardSelectors.forEach(sel => {
+        doc.querySelectorAll(sel).forEach(el => el.remove());
+      });
+
+      // 3. Gestione link: rimuove i link dei video e converte tutti gli altri in puro testo (nessun link deve apparire)
+      doc.querySelectorAll('a').forEach(a => {
+        const href = (a.getAttribute('href') || '').toLowerCase();
+        const text = (a.textContent || '').trim().toLowerCase();
+
+        // Se è un link a YouTube o pulsanti correlati
+        if (href.includes('youtube.com') ||
+          href.includes('youtu.be') ||
+          text.startsWith('apri in') ||
+          text.startsWith('open in') ||
+          text.includes('visualizzazioni') ||
+          text.includes('views')) {
+          // Rimuove il contenitore SOLO se è una specifica card video/preview (MAI rimuovere p o div contenitore del testo!)
+          const cardParent = a.closest('youtube-card, rich-card, .youtube-card, .rich-card, [class*="video-card"], [class*="preview-card"], [class*="rich-preview"]');
+          if (cardParent && cardParent !== doc.body) {
+            cardParent.remove();
+          } else {
+            a.remove();
+          }
+        } else {
+          // Converte qualsiasi link in testo semplice (rimuove il tag <a> preservando il testo)
+          a.replaceWith(document.createTextNode(a.textContent || ''));
+        }
+      });
+
+      // 4. Rimuove righe isolate di testo residuo (es. pulsanti "YouTube", "Apri in ...", conteggio visualizzazioni)
+      doc.querySelectorAll('p, div, span, button, a').forEach(el => {
+        if (el.children.length === 0) {
+          const t = el.textContent.trim().toLowerCase();
+          if (t === 'youtube' ||
+            t.startsWith('apri in ') ||
+            t.startsWith('open in ') ||
+            /^\d+(\.\d+)?\s*[kmb]?\s*(visualizzazioni|views)$/i.test(t)) {
+            el.remove();
+          }
+        }
+      });
+
+      // 5. Rimuove contenitori rimasti vuoti
+      doc.querySelectorAll('p, div, span, blockquote').forEach(el => {
+        if (el.children.length === 0 && el.textContent.trim() === '') {
+          el.remove();
+        }
+      });
+
+      html = doc.body.innerHTML;
+    } catch (err) {
+      console.warn("[Scene Explainer] HTML cleanup warning:", err);
+    }
+
+    let cleaned = html.replace(/<p>\s*<\/p>/g, '')
+      .replace(/<div>\s*<\/div>/g, '')
+      .trim();
+
+    // Fallback di sicurezza: se la pulizia ha rimosso tutto ma rawHtml conteneva del testo,
+    // estrae il puro testo privo di tag per garantire che la risposta non rimanga mai vuota
+    if (!cleaned) {
+      const stripped = (rawHtml || "")
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+        .replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&amp;/gi, '&')
+        .replace(/&lt;/gi, '<')
+        .replace(/&gt;/gi, '>')
+        .replace(/&quot;/gi, '"')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (stripped) {
+        cleaned = `<p>${stripped}</p>`;
+      }
+    }
+
+    return cleaned;
+  }
+
   function renderInitialExplanation(rawHtml) {
     const contentEl = document.getElementById('se-content');
     if (!contentEl) return;
@@ -593,14 +789,14 @@
 
     if (match && match[1]) {
       suggestedQuestion = match[1].replace(/<\/?[^>]+(>|$)/g, '').replace(/[\]\*\)]/g, '').trim();
-      text = text.replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '').trim();
     }
+
+    text = cleanExplanationHtml(text);
 
     if (!suggestedQuestion || suggestedQuestion.length < 4) {
       suggestedQuestion = pack.followupDefault;
     }
 
-    text = text.replace(/<p>\s*<\/p>/g, '').trim();
     currentSuggestedQuestion = suggestedQuestion;
 
     contentEl.innerHTML = `
@@ -608,6 +804,25 @@
       <div class="se-followup-wrapper" id="se-followup-wrapper">
         <div class="se-followup-trigger" id="se-followup-trigger" role="button" tabindex="0" title="${suggestedQuestion}">
           <span class="se-followup-label">${suggestedQuestion}</span>
+        </div>
+        <div id="se-qa-history" class="se-qa-history"></div>
+        <div class="se-custom-ask-wrapper" id="se-custom-ask-wrapper">
+          <div class="se-custom-ask-trigger" role="button" tabindex="0">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            <span>${pack.askLabel || "Chiedi qualcosa.."}</span>
+          </div>
+          <div class="se-custom-ask-box" style="display: none;">
+            <input type="text" class="se-custom-ask-input" placeholder="${pack.askPlaceholder || 'Fai una domanda sulla scena...'}" maxlength="160" />
+            <button type="button" class="se-custom-ask-submit" title="Invia">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -619,20 +834,38 @@
         executeFollowupExplanation(currentSuggestedQuestion);
       });
     }
+
+    attachCustomAskHandlers(contentEl);
+
+    const mainView = document.getElementById('se-main-view');
+    if (mainView) mainView.scrollTop = 0;
   }
 
   function executeFollowupExplanation(question) {
     stopCountdown();
     const pack = getI18n();
-    const wrapper = document.getElementById('se-followup-wrapper');
-    if (wrapper) {
-      wrapper.innerHTML = `
-        <div class="se-followup-loading">
-          <span class="se-loader se-loader-mini"></span>
-          <i>${pack.followupLoading}</i>
-        </div>
+
+    // Nasconde il pulsante della domanda suggerita
+    const triggerBtn = document.getElementById('se-followup-trigger');
+    if (triggerBtn) triggerBtn.style.display = 'none';
+
+    // Aggiunge il loader alla cronologia Q&A senza cancellare il resto
+    const historyContainer = document.getElementById('se-qa-history');
+    if (historyContainer) {
+      const existingLoading = document.getElementById('se-qa-loading');
+      if (existingLoading) existingLoading.remove();
+
+      const loadingEl = document.createElement('div');
+      loadingEl.id = 'se-qa-loading';
+      loadingEl.className = 'se-followup-loading';
+      loadingEl.innerHTML = `
+        <span class="se-loader se-loader-mini"></span>
+        <i>${pack.followupLoading}</i>
       `;
+      historyContainer.appendChild(loadingEl);
     }
+
+    currentSuggestedQuestion = question;
 
     const title = lastDetectedTitle || document.title || "Video";
     const contextDesc = lastContextDesc || pack.promptStreaming;
@@ -646,26 +879,190 @@
       isFollowup: true
     }, (response) => {
       if (chrome.runtime.lastError) {
-        if (wrapper) {
-          wrapper.innerHTML = `<span style="color:#fa5252; font-size:11px;">${pack.errorExtension}</span>`;
+        const loadingEl = document.getElementById('se-qa-loading');
+        if (loadingEl) {
+          loadingEl.innerHTML = `<span style="color:#fa5252; font-size:11px;">${pack.errorExtension}</span>`;
         }
       }
     });
+  }
+
+  function executeCustomAsk(question) {
+    stopCountdown();
+    const pack = getI18n();
+
+    // Nasconde l'eventuale domanda suggerita se non ancora risposta
+    const triggerBtn = document.getElementById('se-followup-trigger');
+    if (triggerBtn) triggerBtn.style.display = 'none';
+
+    // Reset immediato dell'input per permettere subito altre domande future
+    const askTrigger = document.querySelector('.se-custom-ask-trigger');
+    const askBox = document.querySelector('.se-custom-ask-box');
+    const askInput = document.querySelector('.se-custom-ask-input');
+    if (askBox) askBox.style.display = 'none';
+    if (askTrigger) askTrigger.style.display = 'inline-flex';
+    if (askInput) askInput.value = '';
+
+    // Aggiunge il loader in coda alla cronologia
+    const historyContainer = document.getElementById('se-qa-history');
+    if (historyContainer) {
+      const existingLoading = document.getElementById('se-qa-loading');
+      if (existingLoading) existingLoading.remove();
+
+      const loadingEl = document.createElement('div');
+      loadingEl.id = 'se-qa-loading';
+      loadingEl.className = 'se-followup-loading';
+      loadingEl.innerHTML = `
+        <span class="se-loader se-loader-mini"></span>
+        <i>${pack.askLoading}</i>
+      `;
+      historyContainer.appendChild(loadingEl);
+    }
+
+    currentSuggestedQuestion = question;
+
+    const title = lastDetectedTitle || document.title || "Video";
+    const contextDesc = lastContextDesc || pack.promptStreaming;
+    const timeFormatted = lastFormattedTime || "tempo corrente";
+
+    const customPrompt = pack.customPromptTemplate(contextDesc, title, timeFormatted, question);
+
+    chrome.runtime.sendMessage({
+      action: "explainSceneAutomation",
+      prompt: customPrompt,
+      isFollowup: true
+    }, (response) => {
+      if (chrome.runtime.lastError) {
+        const loadingEl = document.getElementById('se-qa-loading');
+        if (loadingEl) {
+          loadingEl.innerHTML = `<span style="color:#fa5252; font-size:11px;">${pack.errorExtension}</span>`;
+        }
+      }
+    });
+  }
+
+  function attachCustomAskHandlers(parentEl) {
+    if (!parentEl) return;
+    const askTrigger = parentEl.querySelector('.se-custom-ask-trigger');
+    const askBox = parentEl.querySelector('.se-custom-ask-box');
+    const askInput = parentEl.querySelector('.se-custom-ask-input');
+    const askBtn = parentEl.querySelector('.se-custom-ask-submit');
+
+    if (askTrigger && askBox && askInput) {
+      askTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopCountdown();
+        askTrigger.style.display = 'none';
+        askBox.style.display = 'flex';
+        askInput.focus();
+      });
+
+      const submitQuestion = () => {
+        const q = askInput.value.trim();
+        if (!q) {
+          askInput.focus();
+          return;
+        }
+        executeCustomAsk(q);
+      };
+
+      if (askBtn) {
+        askBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          submitQuestion();
+        });
+      }
+
+      askInput.addEventListener('keydown', (e) => {
+        stopCountdown();
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopPropagation();
+          submitQuestion();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          e.stopPropagation();
+          askBox.style.display = 'none';
+          askTrigger.style.display = 'inline-flex';
+          askInput.value = '';
+        }
+      });
+
+      askInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopCountdown();
+      });
+    }
   }
 
   function renderFollowupResult(rawHtml) {
     const wrapper = document.getElementById('se-followup-wrapper');
     if (!wrapper) return;
 
-    let cleanText = (rawHtml || "").replace(/<p>\s*<\/p>/g, '').trim();
-    cleanText = cleanText.replace(/(?:<p>)?(?:\[|\*\*|\*|\()?DOMANDA(?:\:|\s*\:|\*\*|\*|\]|\))?\s*:?\s*[^<\n\r]+(?:<\/p>)?/gi, '').trim();
+    const pack = getI18n();
+    let cleanText = cleanExplanationHtml(rawHtml || "");
 
-    wrapper.innerHTML = `
-      <div class="se-backstory-card">
-        <div class="se-backstory-question">${currentSuggestedQuestion}</div>
-        <div class="se-backstory-body">${cleanText}</div>
-      </div>
-    `;
+    // Rimuove il loader
+    const loadingEl = document.getElementById('se-qa-loading');
+    if (loadingEl) loadingEl.remove();
+
+    // Costruisce la card Q&A
+    const cardEl = document.createElement('div');
+    cardEl.className = 'se-backstory-card';
+
+    const questionEl = document.createElement('div');
+    questionEl.className = 'se-backstory-question';
+    questionEl.textContent = currentSuggestedQuestion;
+
+    const bodyEl = document.createElement('div');
+    bodyEl.className = 'se-backstory-body';
+    bodyEl.innerHTML = cleanText;
+
+    cardEl.appendChild(questionEl);
+    cardEl.appendChild(bodyEl);
+
+    const historyContainer = document.getElementById('se-qa-history');
+    if (historyContainer) {
+      historyContainer.appendChild(cardEl);
+    } else {
+      wrapper.appendChild(cardEl);
+    }
+
+    // Assicura che il box custom ask sia ancora presente in fondo
+    let customAskWrapper = wrapper.querySelector('.se-custom-ask-wrapper');
+    if (!customAskWrapper) {
+      const askDiv = document.createElement('div');
+      askDiv.className = 'se-custom-ask-wrapper';
+      askDiv.id = 'se-custom-ask-wrapper';
+      askDiv.innerHTML = `
+        <div class="se-custom-ask-trigger" role="button" tabindex="0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          <span>${pack.askLabel || "Chiedi qualcosa.."}</span>
+        </div>
+        <div class="se-custom-ask-box" style="display: none;">
+          <input type="text" class="se-custom-ask-input" placeholder="${pack.askPlaceholder || 'Fai una domanda sulla scena...'}" maxlength="160" />
+          <button type="button" class="se-custom-ask-submit" title="Invia">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      `;
+      wrapper.appendChild(askDiv);
+      attachCustomAskHandlers(wrapper);
+    }
+
+    // Scorre la vista verso il basso per mostrare l'ultima risposta
+    const mainView = document.getElementById('se-main-view');
+    if (mainView) {
+      setTimeout(() => {
+        mainView.scrollTop = mainView.scrollHeight;
+      }, 50);
+    }
   }
 
   async function explainCurrentScene() {

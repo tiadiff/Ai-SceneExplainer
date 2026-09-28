@@ -50,6 +50,7 @@ body.se-is-dragging video {
   user-select: none;
   position: relative;
   overflow: hidden;
+  touch-action: none;
   transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.2s ease,
@@ -101,18 +102,22 @@ body.se-is-dragging video {
   color: #ffffff;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 #se-icon-view svg {
   width: 24px;
   height: 24px;
   display: block;
+  pointer-events: none;
 }
 
 /* 2. STATO ESPANSO (Stesso pulsante ingrandito con spiegazione e limiti) */
 #se-widget.se-expanded {
   width: 320px;
   max-width: calc(100vw - 20px);
+  max-height: 85vh;
+  box-sizing: border-box;
   border-radius: 12px 0 0 12px;
   border-right: none;
   padding: 16px 18px 14px 18px;
@@ -136,6 +141,9 @@ body.se-is-dragging video {
 #se-widget.se-expanded #se-expanded-view {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   animation: seFadeIn 0.25s ease-out;
 }
 
@@ -153,10 +161,39 @@ body.se-is-dragging video {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: grab;
   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
-#se-header:active {
-  cursor: grabbing;
+#se-header:active,
+body.se-is-dragging #se-header {
+  cursor: grabbing !important;
+}
+
+#se-header-drag-zone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#se-header-drag-zone:active,
+body.se-is-dragging #se-header-drag-zone {
+  cursor: grabbing !important;
+}
+
+.se-drag-dots {
+  color: #666666;
+  flex-shrink: 0;
+  transition: color 0.2s;
+  pointer-events: none;
+}
+
+#se-header:hover .se-drag-dots {
+  color: #a1a1aa;
 }
 
 #se-header-title {
@@ -165,6 +202,9 @@ body.se-is-dragging video {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: #ffffff;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #se-header-actions {
@@ -214,6 +254,27 @@ body.se-is-dragging video {
 #se-main-view {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(85vh - 65px);
+  padding: 4px 6px 0 0;
+}
+
+#se-main-view::-webkit-scrollbar {
+  width: 4px;
+}
+
+#se-main-view::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#se-main-view::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+}
+
+#se-main-view::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 #se-settings-view {
@@ -293,6 +354,53 @@ body.se-is-dragging video {
   line-height: 1.5;
 }
 
+/* Strettamente vietati immagini, svg, video, iframe e card esterne all'interno del corpo della spiegazione */
+.se-main-explanation img,
+.se-backstory-body img,
+.se-main-explanation svg,
+.se-backstory-body svg,
+#se-content video,
+.se-main-explanation video,
+.se-backstory-body video,
+#se-content iframe,
+.se-main-explanation iframe,
+.se-backstory-body iframe,
+#se-content canvas,
+#se-content picture,
+#se-content figure,
+#se-content embed,
+#se-content object,
+#se-content [class*="youtube"],
+#se-content [class*="video"],
+#se-content [class*="preview"],
+#se-content youtube-card,
+#se-content rich-card {
+  display: none !important;
+}
+
+/* I link non devono apparire come tali o essere cliccabili */
+#se-content a,
+.se-main-explanation a,
+.se-backstory-body a {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
+  cursor: text !important;
+}
+
+#se-content p,
+.se-main-explanation p,
+.se-backstory-body p {
+  margin: 0 0 8px 0 !important;
+  line-height: 1.55 !important;
+}
+
+#se-content p:last-child,
+.se-main-explanation p:last-child,
+.se-backstory-body p:last-child {
+  margin-bottom: 0 !important;
+}
+
 /* Follow-up / Backstory Suggestion Box */
 .se-followup-wrapper {
   margin-top: 10px;
@@ -350,13 +458,25 @@ body.se-is-dragging video {
   margin-right: 8px;
 }
 
+.se-qa-history {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 /* Follow-up Backstory Result Card */
 .se-backstory-card {
-  margin-top: 8px;
+  margin-top: 6px;
   padding: 6px 0 0 0;
   background: transparent;
   border: none;
   animation: seFadeIn 0.25s ease-out;
+}
+
+.se-backstory-card + .se-backstory-card {
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-top: 8px;
+  margin-top: 8px;
 }
 
 .se-backstory-question {
@@ -447,3 +567,106 @@ body.se-is-dragging video {
 @keyframes se-spin {
   to { transform: rotate(360deg); }
 }
+
+/* Custom Question Box ("Chiedi qualcosa..") */
+.se-custom-ask-wrapper {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.se-custom-ask-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  font-size: 11.5px;
+  color: #888888;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+  width: fit-content;
+  padding: 3px 0;
+}
+
+.se-custom-ask-trigger:hover {
+  color: #d4d4d8;
+}
+
+.se-custom-ask-trigger svg {
+  display: block !important;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.se-custom-ask-trigger:hover svg {
+  opacity: 1;
+}
+
+.se-custom-ask-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  padding: 3px 4px 3px 9px;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.se-custom-ask-box:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+.se-custom-ask-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-family: inherit;
+  padding: 3px 0;
+  min-width: 0;
+}
+
+.se-custom-ask-input::placeholder {
+  color: #71717a;
+  font-size: 11.5px;
+}
+
+.se-custom-ask-submit {
+  background: #f4f4f5;
+  color: #18181b;
+  border: none;
+  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.se-custom-ask-submit:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+.se-custom-ask-submit:active {
+  transform: scale(0.95);
+}
+
+.se-custom-ask-submit svg {
+  display: block !important;
+}
+

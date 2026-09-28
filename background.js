@@ -11,6 +11,15 @@ chrome.storage.local.remove(['cachedLimits', 'lastFetchTime']);
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "explainSceneAutomation") {
+    // Se c'era una finestra rimasta aperta da una richiesta precedente, chiudiamola
+    if (pendingExplainerWindowId) {
+      try {
+        chrome.windows.remove(pendingExplainerWindowId);
+      } catch (e) {}
+      pendingExplainerWindowId = null;
+      pendingExplainerTabId = null;
+    }
+
     // Salviamo l'ID della scheda del film
     movieTabId = sender.tab.id;
     currentPrompt = request.prompt;
@@ -48,7 +57,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   
   if (request.action === "geminiScraperReady") {
-    if (sender.tab && sender.tab.id === pendingExplainerTabId) {
+    const isMatchingTab = sender.tab && (
+      sender.tab.id === pendingExplainerTabId || 
+      (pendingExplainerWindowId && sender.tab.windowId === pendingExplainerWindowId)
+    );
+    if (isMatchingTab) {
+      if (sender.tab) pendingExplainerTabId = sender.tab.id;
       sendResponse({ hasTask: true, prompt: currentPrompt });
     } else {
       sendResponse({ hasTask: false });
@@ -58,7 +72,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   // Quando lo scraper ha finito di leggere la risposta dell'IA in background
   if (request.action === "geminiResponse") {
-    if (sender.tab && sender.tab.id === pendingExplainerTabId) {
+    const isMatchingTab = sender.tab && (
+      sender.tab.id === pendingExplainerTabId || 
+      (pendingExplainerWindowId && sender.tab.windowId === pendingExplainerWindowId)
+    );
+    if (isMatchingTab) {
       stopExplainerGuardian();
 
       if (movieTabId) {
@@ -77,7 +95,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // Chiudiamo la finestrella di Gemini
       if (pendingExplainerWindowId) {
         chrome.windows.remove(pendingExplainerWindowId);
-      } else {
+      } else if (pendingExplainerTabId) {
         chrome.tabs.remove(pendingExplainerTabId);
       }
       

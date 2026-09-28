@@ -330,11 +330,11 @@ function runScraper(prompt) {
 }
 
 /**
- * Intelligent function that selects Gemini 3.8 Flash instead of Gemini 3.1 Pro.
+ * Intelligent function that selects Gemini Flash (the fastest/most cost-effective model).
  * Handles both native <select> elements and custom Gemini dropdown menus (Material/Wiz).
  */
 async function selectFlashModel() {
-  console.log("[Scene Explainer] Attempting to select Gemini 3.8 Flash...");
+  console.log("[Scene Explainer] Attempting to select Gemini Flash...");
 
   // Strategy 1: Check for native <select> or <mat-select>
   const selects = Array.from(document.querySelectorAll('select'));
@@ -342,9 +342,7 @@ async function selectFlashModel() {
     const options = Array.from(sel.options);
     const flashIndex = options.findIndex(opt => {
       const text = (opt.text || opt.value || '').toLowerCase();
-      return (text.includes('3.8') && text.includes('flash')) ||
-        (text.includes('flash') && !text.includes('pro')) ||
-        text.includes('3.8');
+      return text.includes('flash');
     });
 
     if (flashIndex !== -1) {
@@ -352,9 +350,9 @@ async function selectFlashModel() {
         sel.selectedIndex = flashIndex;
         sel.dispatchEvent(new Event('change', { bubbles: true }));
         sel.dispatchEvent(new Event('input', { bubbles: true }));
-        console.log("[Scene Explainer] Selected Gemini 3.8 Flash via native <select>!");
+        console.log("[Scene Explainer] Selected Gemini Flash via native <select>!");
       } else {
-        console.log("[Scene Explainer] Gemini 3.8 Flash already selected in native <select>.");
+        console.log("[Scene Explainer] Gemini Flash already selected in native <select>.");
       }
       return true;
     }
@@ -369,10 +367,7 @@ async function selectFlashModel() {
     '[data-test-id*="model-picker"]',
     '[data-test-id*="model-select"]',
     'button[aria-label*="modello" i]',
-    'button[aria-label*="model" i]',
-    'button[aria-label*="gemini" i]',
-    'button[aria-haspopup="menu"]',
-    'button[aria-haspopup="listbox"]'
+    'button[aria-label*="model " i]'
   ];
 
   let triggerBtn = null;
@@ -392,10 +387,8 @@ async function selectFlashModel() {
     const allButtons = Array.from(document.querySelectorAll('button, div[role="button"], div[tabindex="0"]'));
     triggerBtn = allButtons.find(b => {
       const text = (b.innerText || b.textContent || '').trim().toLowerCase();
-      return (text.includes('3.1') && text.includes('pro')) ||
-        (text.includes('pro') && (text.includes('gemini') || text.includes('3.1'))) ||
-        (text.includes('3.8') && text.includes('flash')) ||
-        (text.includes('flash') && text.includes('gemini'));
+      // Solo pulsanti che menzionano chiaramente un modello
+      return text.includes('flash') || text.includes('pro') || text.includes('advanced');
     });
   }
 
@@ -403,25 +396,24 @@ async function selectFlashModel() {
     const currentText = (triggerBtn.innerText || triggerBtn.textContent || '').toLowerCase();
     console.log("[Scene Explainer] Found model picker trigger:", currentText);
 
-    // Check if Gemini 3.8 Flash is ALREADY selected
-    if ((currentText.includes('3.8') && currentText.includes('flash')) ||
-      (currentText.includes('flash') && !currentText.includes('pro'))) {
-      console.log("[Scene Explainer] Gemini 3.8 Flash is already active, no click needed.");
+    // Check if Gemini Flash is ALREADY selected
+    if (currentText.includes('flash')) {
+      console.log("[Scene Explainer] Gemini Flash is already active, no click needed.");
       return true;
     }
 
-    // If another model is selected (e.g. 3.1 Pro), open the menu
+    // If another model is selected (e.g. Pro), open the menu
     console.log("[Scene Explainer] Clicking to open model menu...");
     triggerBtn.click();
 
-    // Wait for menu to open and click the Gemini 3.8 Flash option
+    // Wait for menu to open and click the Gemini Flash option
     const success = await waitForAndClickModelOption();
     if (success) {
-      console.log("[Scene Explainer] Model switched to Gemini 3.8 Flash!");
+      console.log("[Scene Explainer] Model switched to Gemini Flash!");
       await new Promise(r => setTimeout(r, 600));
       return true;
     } else {
-      console.warn("[Scene Explainer] Gemini 3.8 Flash option not found in open menu.");
+      console.warn("[Scene Explainer] Gemini Flash option not found in open menu.");
       // Close menu with Escape to prevent it from overlaying the text box
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27, bubbles: true }));
     }
@@ -433,7 +425,7 @@ async function selectFlashModel() {
 }
 
 /**
- * Waits for the dropdown menu with models to appear in the DOM and selects the 3.8 Flash option
+ * Waits for the dropdown menu with models to appear in the DOM and selects the Flash option
  */
 function waitForAndClickModelOption() {
   return new Promise((resolve) => {
@@ -461,25 +453,17 @@ function waitForAndClickModelOption() {
         menuItems = Array.from(document.querySelectorAll('.cdk-overlay-container button, div[role="menu"] *, .mat-mdc-menu-panel *'));
       }
 
-      // 1. Highest priority: contains both "3.8" and "flash"
+      // Priority: contains "flash" (without "pro")
       let targetItem = menuItems.find(item => {
         const text = (item.innerText || item.textContent || '').toLowerCase();
-        return text.includes('3.8') && text.includes('flash');
+        return text.includes('flash') && !text.includes('pro');
       });
 
-      // 2. Second priority: contains "3.8" (without "pro")
+      // Secondary priority: contains "flash"
       if (!targetItem) {
         targetItem = menuItems.find(item => {
           const text = (item.innerText || item.textContent || '').toLowerCase();
-          return text.includes('3.8') && !text.includes('pro');
-        });
-      }
-
-      // 3. Third priority: contains "flash" (without "pro")
-      if (!targetItem) {
-        targetItem = menuItems.find(item => {
-          const text = (item.innerText || item.textContent || '').toLowerCase();
-          return text.includes('flash') && !text.includes('pro');
+          return text.includes('flash');
         });
       }
 
@@ -528,8 +512,32 @@ function waitForResponse() {
             clearInterval(checkInterval);
             updateShieldStatus("Explanation completed! Closing window...");
 
-            // Format text in HTML for clean display in notification
-            const formattedText = lastMessage.innerHTML;
+            // Prefer the pure markdown or response text container to avoid external grounding widgets/carousels
+            const targetEl = lastMessage.querySelector('.model-response-text') ||
+              lastMessage.querySelector('.markdown') ||
+              lastMessage;
+
+            // Clone and sanitize content to eliminate any video embeds, cards, images, svgs or links
+            const clone = targetEl.cloneNode(true);
+            clone.querySelectorAll('img, svg, video, iframe, canvas, audio, picture, figure, youtube-card, rich-card, fact-check-view, sources-carousel, sources-list, .grounding-sources, .youtube-card, .rich-card, [class*="video-card"], [class*="preview-card"]').forEach(el => el.remove());
+            clone.querySelectorAll('a').forEach(a => {
+              const text = (a.textContent || '').trim().toLowerCase();
+              const href = (a.getAttribute('href') || '').toLowerCase();
+              if (href.includes('youtube') || href.includes('youtu.be') || text.startsWith('apri in') || text.startsWith('open in') || text.includes('visualizzazioni') || text.includes('views')) {
+                a.remove();
+              } else {
+                a.replaceWith(document.createTextNode(a.textContent));
+              }
+            });
+
+            // Format text in HTML for clean display in notification with safety fallback
+            let formattedText = clone.innerHTML.trim();
+            if (!formattedText || formattedText === '<p></p>') {
+              const fallbackText = (targetEl.innerText || targetEl.textContent || '').trim();
+              if (fallbackText) {
+                formattedText = `<p>${fallbackText}</p>`;
+              }
+            }
 
             // Send final response to Background Script
             chrome.runtime.sendMessage({ action: "geminiResponse", text: formattedText });
@@ -543,3 +551,4 @@ function waitForResponse() {
     }, 500); // Check text every half second
   }, 2000);
 }
+
